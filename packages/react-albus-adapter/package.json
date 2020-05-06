@@ -14,16 +14,20 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint --fix",
+    "lint": "tsdx lint src --fix",
     "prepare": "tsdx build"
   },
   "peerDependencies": {
+    "@react-final-wizard/core": "^0.1.0",
     "react": ">=16.8",
     "react-albus": "^2.0.0"
   },
+  "devDependencies": {
+    "@react-final-wizard/core": "^0.1.0"
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "tsdx lint --fix"
     }
   },
   "prettier": {
@@ -34,15 +38,5 @@
   },
   "name": "@react-final-wizard/react-albus-adapter",
   "author": "Luis Felipe Zaguini",
-  "module": "dist/react-albus-adapter.esm.js",
-  "devDependencies": {
-    "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.7",
-    "husky": "^4.2.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "tsdx": "^0.13.2",
-    "tslib": "^1.11.2",
-    "typescript": "^3.8.3"
-  }
+  "module": "dist/react-albus-adapter.esm.js"
 }

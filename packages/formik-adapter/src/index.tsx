@@ -1,20 +1,14 @@
-import React, { ReactNode } from 'react';
-import { Formik, FormikConfig } from 'formik';
-
-type FormProps<T> = Pick<
-  FormikConfig<T>,
-  'validationSchema' | 'initialValues' | 'onSubmit'
-> & {
-  children(props: { currentValues: T }): ReactNode;
-};
+import React, {createElement} from 'react';
+import { Formik } from 'formik';
+import { FormAdapterFormProps } from '@react-final-wizard/core';
 
 const formikAdapter = {
-  Form: <T,>({
+  Form: ({
     validationSchema,
     initialValues,
     onSubmit,
     children,
-  }: FormProps<T>) => {
+  }: FormAdapterFormProps) => {
     return (
       <Formik
         enableReinitialize
@@ -24,7 +18,7 @@ const formikAdapter = {
       >
         {props => (
           <form onSubmit={props.handleSubmit}>
-            {children({ currentValues: props.values })}
+            {createElement(children, { currentValues: props.values })}
           </form>
         )}
       </Formik>

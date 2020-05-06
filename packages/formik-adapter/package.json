@@ -9,7 +9,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "tsdx lint --fix"
     }
   },
   "license": "MIT",
@@ -17,8 +17,12 @@
   "module": "dist/formik-adapter.esm.js",
   "name": "@react-final-wizard/formik-adapter",
   "peerDependencies": {
+    "@react-final-wizard/core": "^0.1.0",
     "formik": "^2.1.4",
     "react": ">=16.8"
+  },
+  "devDependencies": {
+    "@react-final-wizard/core": "^0.1.0"
   },
   "prettier": {
     "printWidth": 80,
@@ -28,7 +32,7 @@
   },
   "scripts": {
     "build": "tsdx build",
-    "lint": "tsdx lint --fix",
+    "lint": "tsdx lint src --fix",
     "prepare": "tsdx build",
     "start": "tsdx watch",
     "test": "tsdx test --passWithNoTests"

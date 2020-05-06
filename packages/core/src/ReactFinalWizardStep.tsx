@@ -2,13 +2,13 @@ import React, { ComponentType, createElement, useMemo } from 'react';
 import produce from 'immer';
 
 import { noop } from './helpers';
-import { useReactFinalWizardContext } from 'context';
+import { useReactFinalWizardContext } from './context';
 import {
   FormAdapter,
   ReactFinalWizardProps,
   ReactFinalWizardStep as IReactFinalWizardStep,
   WizardAdapter,
-} from 'types';
+} from './types';
 
 type ReactFinalWizardStepProps = IReactFinalWizardStep &
   Pick<ReactFinalWizardProps<any, any>, 'steps' | 'Wrapper' | 'onSubmit'> &

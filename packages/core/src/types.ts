@@ -1,9 +1,10 @@
-import { ComponentType, Dispatch, ReactNode, SetStateAction } from 'react';
+import {ComponentType, Dispatch, FunctionComponent, ReactNode, SetStateAction} from 'react';
 
 export interface ReactFinalWizardStep<V = any, AV = any, S = any> {
   id: string;
   initialValues: V;
   keepValuesOnPrevious?: boolean;
+  component: ComponentType;
   onAction(values: V, allValues: AV): S | Promise<S>;
   validationSchema: any;
 }
@@ -16,7 +17,7 @@ export interface FormAdapterFormProps<T = any> {
   initialValues: any;
   validationSchema: any | (() => any);
   onSubmit(values: any): void | Promise<any>;
-  children(props: { currentValues: T }): ReactNode;
+  children: FunctionComponent<{ currentValues: T }>
 }
 
 export interface FormAdapter {

@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { ReactFinalWizardContextValue } from 'types';
+import { ReactFinalWizardContextValue } from './types';
 
 export const ReactFinalWizardContext = createContext<
   ReactFinalWizardContextValue<any, any>

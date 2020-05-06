@@ -1,11 +1,16 @@
 import React, { createContext, ReactNode, useContext, useMemo } from 'react';
-import { Step, Steps, withWizard, Wizard, WizardContext } from 'react-albus';
+import { Step, Steps, withWizard, Wizard } from 'react-albus';
+import {
+  WizardAdapter,
+  WizardAdapterContext,
+  WizardAdapterStep,
+} from '@react-final-wizard/core';
 
-const WizardContext = createContext<WizardContext | undefined>(undefined);
+const WizardContext = createContext<WizardAdapterContext | undefined>(
+  undefined
+);
 
-const consumeContext = useContext;
-
-const wizardAdapter = {
+const wizardAdapter: WizardAdapter = {
   Wizard: (props: { children?: ReactNode }) => {
     return (
       <Wizard>
@@ -13,7 +18,7 @@ const wizardAdapter = {
       </Wizard>
     );
   },
-  Step: withWizard<{ id: string }>(props => {
+  Step: withWizard<WizardAdapterStep>(props => {
     const value = useMemo(
       () => ({
         ...props.wizard,
@@ -22,14 +27,15 @@ const wizardAdapter = {
       [props.wizard]
     );
 
+    // @ts-ignore
+    const step = <Step {...props} />;
+
     return (
-      <WizardContext.Provider value={value}>
-        <Step {...props} />
-      </WizardContext.Provider>
+      <WizardContext.Provider value={value}>{step}</WizardContext.Provider>
     );
   }),
-  useContext: (): WizardContext => {
-    const value = consumeContext(WizardContext);
+  useContext: () => {
+    const value = useContext(WizardContext);
 
     if (!value) {
       throw new Error('No context');
