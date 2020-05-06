@@ -1,0 +1,17 @@
+{
+  "name": "react-final-wizard",
+  "private": true,
+  "version": "0.1.1",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-albus": "^2.0.5",
+    "formik": "^2.1.4",
+    "lerna": "^3.20.2",
+    "react": "^16.13.1",
+    "react-albus": "^2.0.0"
+  }
+}
