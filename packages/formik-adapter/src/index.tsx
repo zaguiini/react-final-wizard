@@ -18,7 +18,7 @@ const formikAdapter = {
       >
         {props => (
           <form onSubmit={props.handleSubmit}>
-            {createElement(children, { currentValues: props.values })}
+            {createElement(children, { currentValues: props.values, submitStep: props.handleSubmit })}
           </form>
         )}
       </Formik>

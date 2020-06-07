@@ -34,6 +34,7 @@ export const ReactFinalWizardStep = ({
 
   const info = useMemo(
     () => ({
+      stepNumber: steps.findIndex((step) => step.id === id),
       canGoBack: steps[0].id !== id,
       currentStep: id,
       isLastStep: steps[steps.length - 1].id === id,
@@ -79,8 +80,13 @@ export const ReactFinalWizardStep = ({
       setValues(newValues);
     }
 
-    wizard.goBack();
+    wizard.goToStep(steps[info.stepNumber - 1].id);
   };
+
+  const goToStep = (step: string) => {
+    setStatus(undefined)
+    wizard.goToStep(step)
+  }
 
   return (
     <Form
@@ -88,8 +94,8 @@ export const ReactFinalWizardStep = ({
       initialValues={values[id]}
       onSubmit={handleSubmit}
     >
-      {({ currentValues }) => (
-        <Wrapper {...info} status={status} goBack={goBack(currentValues)}>
+      {({ currentValues, submitStep }) => (
+        <Wrapper {...info} status={status} goBack={goBack(currentValues)} goToStep={goToStep} submitStep={submitStep}>
           {createElement(component)}
         </Wrapper>
       )}

@@ -1,4 +1,4 @@
-import {ComponentType, Dispatch, FunctionComponent, ReactNode, SetStateAction} from 'react';
+import {ComponentType, Dispatch, FunctionComponent, Ref, SetStateAction} from 'react';
 
 export interface ReactFinalWizardStep<V = any, AV = any, S = any> {
   id: string;
@@ -16,8 +16,8 @@ export interface ReactFinalWizardValues {
 export interface FormAdapterFormProps<T = any> {
   initialValues: any;
   validationSchema: any | (() => any);
-  onSubmit(values: any): void | Promise<any>;
-  children: FunctionComponent<{ currentValues: T }>
+  onSubmit(values: T): void | Promise<any>;
+  children: FunctionComponent<{ currentValues: T, submitStep(): void }>
 }
 
 export interface FormAdapter {
@@ -27,6 +27,7 @@ export interface FormAdapter {
 export interface WizardAdapterContext {
   goBack(): void;
   next(): void;
+  goToStep(step: string, strategy?: 'push' | 'replace'): void
 }
 
 export interface WizardAdapterStep {
@@ -36,7 +37,7 @@ export interface WizardAdapterStep {
 
 export interface WizardAdapter {
   useContext(): WizardAdapterContext;
-  Wizard: ComponentType;
+  Wizard: ComponentType<{ ref: Ref<WizardContainerRefProps> }>;
   Step: ComponentType<WizardAdapterStep>;
 }
 
@@ -46,12 +47,20 @@ export interface WrapperProps<S> {
   isLastStep: boolean;
   status: S;
   goBack(): void;
+  goToStep(step: string): void
+  submitStep(): void
+}
+
+export interface WizardContainerRefProps {
+  goToStep(step: string): void
 }
 
 export interface ReactFinalWizardProps<V, S> {
+  initialStep?: string
+  shouldResetStepOnChange?: boolean
   initialStatus: S;
   onSubmit(values: V): S;
-  steps: ReactFinalWizardStep<any>[];
+  steps: ReactFinalWizardStep[];
   formAdapter: FormAdapter;
   wizardAdapter: WizardAdapter;
   Wrapper: ComponentType<WrapperProps<S>>;
